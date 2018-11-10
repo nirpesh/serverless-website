@@ -1,0 +1,108 @@
+<!Doctype html>
+<html>
+<head>
+	<style>
+	
+	</style>
+</head>
+<body>
+<script>
+			
+	
+				
+				
+	var a,b;
+	var interval;
+	var c = null;
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function()
+	{
+    	if (this.readyState == 4 && this.status == 200) 
+		{
+			a = xhttp.responseText;
+			b = JSON.parse(a);
+
+
+
+
+			var a = b[0]["income"]
+			for(var i=0;i<a.length;i++){
+			alert("Income for the date "+b[i]["date"]+" is "+b[i]["income"])	
+
+
+
+
+
+
+
+
+
+			}
+			
+			console.log(a)
+			c = b.res.length;
+			
+
+		}
+	};
+	xhttp.open("GET", "https://j97m24d936.execute-api.us-east-1.amazonaws.com/test/proj", true); 
+   	xhttp.send();
+		
+	interval = setInterval("getResult()", 80);
+	function getResult()
+	{
+ 	if(c != null)
+		{
+		interval = clearInterval(interval);
+			
+			looptable(c,b);
+			}
+	}				
+				
+
+var value1 = null;
+var value2;
+function looptable(value1 , value2)
+	{
+		document.write("<table border='solid 2px;' style='font-size:50px;'>");
+	document.write("<thead><tr>");
+
+
+		document.write("<th><label style='color:green;'>date</label></th>");
+				document.write("<th><label style='color:green;'>customer </label></th>");
+				document.write("<th><label style='color:green;'>income</label></th>");
+				document.write("<th><label style='color:green;'>expense</label></th>");
+			
+	document.write("</tr>");
+		
+
+	 	document.write("</thead>");	
+	document.write("<tbody>");	
+
+		
+	 	for(var i =1; i<=value1; i++)
+	 	{
+			document.write("<tr>");
+	 		for(var k=1; k<=4; k++)
+	 			{
+	 				if(k==1)
+	 					document.write("<td>"+value2.res[i-1].date+"</td>");
+	 				else if(k==2)
+	 					document.write("<td>"+value2.res[i-1].customer+"</td>");
+	 				else if(k==3)
+	 					document.write("<td>"+value2.res[i-1].income+"</td>");
+	 				else	
+	 					document.write("<td>"+value2.res[i-1].expense+"</td>");
+	 			}
+	 		document.write("</tr>"); 
+	 	}	
+	}
+	
+
+
+
+</script>
+	</tbody>
+</table>
+</body>
+</html>

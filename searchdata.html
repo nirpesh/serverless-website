@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+body{
+    background-image:url("e.jpg");
+  }
+	}
+.button {
+    background-color:   #989898; 
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    margin: 4px 2px;
+    cursor: pointer;
+	margin-top:100px;
+	margin-left: 100px;
+}
+	
+.search {
+    background-color: #989898; 
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 23px;
+    margin: 4px 2px;
+    cursor: pointer;
+	margin-top:100px;
+	margin-left: 100px;
+}
+
+.button4 {border-radius: 22px;}
+</style>
+</head>
+<body>
+<a class="button button4" href="searchdata.html"> Enter Search Data</a>
+<input placeholder="Search date(eg:2011/01/01)" type="text" id="search_daily" class="search button4"/> 
+</form>
+<script>
+	
+var input = document.getElementById("search_daily");
+input.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+
+	alert("Data is loading from server. Press OK to view data");
+
+		
+	   var xhr = new XMLHttpRequest();
+       var params = JSON.stringify({
+           Records:{
+               date: document.getElementById("search_daily").value
+
+           }
+
+       });
+       xhr.open("POST", "https://j97m24d936.execute-api.us-east-1.amazonaws.com/test/proj", true);
+       xhr.setRequestHeader("Content-type", "application/json");
+
+
+       xhr.onreadystatechange = function(){
+           if(xhr.readyState === 4){
+               if(xhr.status === 200){
+           var a = xhr.responseText;
+                   var b = JSON.parse(a);
+           //var date = b.res[0];
+           alert("Date : "+b["date"]+"\n No. of Customer : "+b["customer"]+"\n Total Expense : "+b["expense"]+"\n Total Income : "+b["income"]);
+               }
+               else{
+                   alert("I was unable to recieve your data. Please check errors.");
+               }
+           }
+       };
+       xhr.send(params);
+       return false;
+    
+   
+    
+    }
+});
+  
+</script> 
+</body>
+</html>
+
